@@ -69,11 +69,11 @@ namespace INF731_TP1_FANGUE
                     else if (String.IsNullOrWhiteSpace(element[0]))
                     {
                         throw new Exception(String.Format("Erreur dans le fichier {0} la colonne 1 est vide a la ligne {1}", nom_facture_sortant, ligne));
-                    } 
-              /*      else if (element[0] == String.Empty)
-                    {
-                        throw new Exception(String.Format("Erreur dans le fichier {0} la colonne 1 est vide a la ligne {1}", nom_facture_sortant, ligne));
-                    }*/
+                    }
+                    /*    else if (element[0] == String.Empty)
+                          {
+                              throw new Exception(String.Format("Erreur dans le fichier {0} la colonne 1 est vide a la ligne {1}", nom_facture_sortant, ligne));
+                          }*/
                     else if (element[1] == "[^a-zA-Z0-9]")
                     {
                         throw new Exception(String.Format("Il existe un caractere special dans le fichier{0} a la colonne {2}", nom_facture_sortant, ligne));
@@ -82,14 +82,17 @@ namespace INF731_TP1_FANGUE
                     {
                         throw new Exception(String.Format("Erreur dans le fichier {0} a la colonne 2 doit-etre {2} ou {3} a la ligne {1}", nom_facture_sortant, ligne, Article.NON_TAXABLE, Article.TAXABLE));
                     }
-                    else if (element[3] == String.Empty)
-                    {
-                        throw new Exception(String.Format("Erreur dans le fichier {0} la colonne 4 est vide a la linge {1}", nom_facture_sortant, ligne));
-                    }
                     else if (int.TryParse(element[2], out qte) == false)
                     {
                         throw new Exception(String.Format("Erreur dans le fichier {0} la colonne 3 doit-etre un entier {1}", nom_facture_sortant, ligne));
-
+                    }
+                    else if (int.TryParse(element[2], out qte) == true && qte<0)
+                    {                        
+                         throw new Exception(String.Format("Erreur dans le fichier {0} la colonne 3 doit-etre un entier {1}", nom_facture_sortant, ligne));                       
+                    }
+                    else if (element[3] == String.Empty)
+                    {
+                        throw new Exception(String.Format("Erreur dans le fichier {0} la colonne 4 est vide a la linge {1}", nom_facture_sortant, ligne));
                     }
                     else if (double.TryParse(element[4], NumberStyles.Float, CultureInfo.GetCultureInfo("tr-TR"), out prix_unit) == false)
                     {
